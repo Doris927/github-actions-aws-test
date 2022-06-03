@@ -8,12 +8,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: S3 Sync
-        uses: jakejarvis/s3-sync-action@master
+      - name: Deploy to S3
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'ap-northeast-1' # optional: defaults to us-east-1
-          SOURCE_DIR: 'files' # optional: defaults to entire repository
-
+        run: |
+          aws s3 sync --region ap-northeast-1 ./files/ s3://demo-cloudfront-tammy-61/files
+          aws s3 sync --region ap-northeast-1 ./files2/ s3://demo-cloudfront-tammy-61/files2
+          aws s3 sync --region ap-northeast-1 ./files3/ s3://demo-cloudfront-tammy-61/files3
+          aws s3 sync --region ap-northeast-1 ./files4/ s3://demo-cloudfront-tammy-61/files4
