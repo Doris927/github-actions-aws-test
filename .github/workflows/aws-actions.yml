@@ -16,7 +16,7 @@ jobs:
         uses: tj-actions/changed-files@v23
         with:
           files_ignore: |
-            *.yml
+            '**/*.yml'
           dir_names: 'true'
       - name: Deploy to S3
         env:
