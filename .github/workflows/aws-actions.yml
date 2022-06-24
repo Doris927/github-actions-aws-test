@@ -17,12 +17,13 @@ jobs:
         with:
           files_ignore: |
             *.yml
+          dir_names: 'true'
       - name: Deploy to S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "aws s3 sync --exact-timestamps --region ap-northeast-1 ./$file s3://demo-cloudfront-tammy-61/"
-            aws s3 sync --exact-timestamps --region ap-northeast-1 ./files/test s3://demo-cloudfront-tammy-61/files/test
+          for dir in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "aws s3 sync --exact-timestamps --region ap-northeast-1 ./$dir s3://demo-cloudfront-tammy-61/$dir"
+            aws s3 sync --exact-timestamps --region ap-northeast-1 "./$dir" "s3://demo-cloudfront-tammy-61/$dir"
           done
