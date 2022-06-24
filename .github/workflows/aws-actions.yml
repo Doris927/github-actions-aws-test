@@ -20,6 +20,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "./$file"
+            echo "aws s3 sync --exact-timestamps --region ap-northeast-1 ./$file s3://demo-cloudfront-tammy-61/"
             aws s3 sync --exact-timestamps --region ap-northeast-1 "$file" s3://demo-cloudfront-tammy-61
           done
